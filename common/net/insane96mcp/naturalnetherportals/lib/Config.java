@@ -1,4 +1,4 @@
-package net.insane96mcp.naturalbabyanimals.lib;
+package net.insane96mcp.naturalnetherportals.lib;
 
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;

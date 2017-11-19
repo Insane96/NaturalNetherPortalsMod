@@ -1,8 +1,6 @@
-package net.insane96mcp.naturalbabyanimals;
+package net.insane96mcp.naturalnetherportals;
 
-import java.util.Random;
-
-import net.insane96mcp.naturalbabyanimals.proxies.CommonProxy;
+import net.insane96mcp.naturalnetherportals.proxies.CommonProxy;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
@@ -11,19 +9,19 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
-@Mod(modid = NaturalBabyAnimals.MOD_ID, name = NaturalBabyAnimals.MOD_NAME, version = NaturalBabyAnimals.VERSION, acceptableRemoteVersions = "*", acceptedMinecraftVersions = NaturalBabyAnimals.MINECRAFT_VERSIONS)
-public class NaturalBabyAnimals {
+@Mod(modid = NaturalNetherPortals.MOD_ID, name = NaturalNetherPortals.MOD_NAME, version = NaturalNetherPortals.VERSION, acceptableRemoteVersions = "*", acceptedMinecraftVersions = NaturalNetherPortals.MINECRAFT_VERSIONS)
+public class NaturalNetherPortals {
 	
-	public static final String MOD_ID = "naturalbabyanimals";
-	public static final String MOD_NAME = "Natural Baby Animals";
-	public static final String VERSION = "1.1.3";
+	public static final String MOD_ID = "naturalnetherportals";
+	public static final String MOD_NAME = "Natural Nether Portals";
+	public static final String VERSION = "1.0.0";
 	public static final String RESOURCE_PREFIX = MOD_ID.toLowerCase() + ":";
 	public static final String MINECRAFT_VERSIONS = "[1.11,1.11.2]";
 	
 	@Instance(MOD_ID)
-	public static NaturalBabyAnimals instance;
+	public static NaturalNetherPortals instance;
 	
-	@SidedProxy(clientSide = "net.insane96mcp.naturalbabyanimals.proxies.ClientProxy", serverSide = "net.insane96mcp.naturalbabyanimals.proxies.ServerProxy")
+	@SidedProxy(clientSide = "net.insane96mcp.naturalnetherportals.proxies.ClientProxy", serverSide = "net.insane96mcp.naturalnetherportals.proxies.ServerProxy")
 	public static CommonProxy proxy;
 	
 	@EventHandler
