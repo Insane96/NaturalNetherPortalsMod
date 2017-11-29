@@ -48,7 +48,7 @@ public class OverworldPortalGen implements IWorldGenerator {
 	public static void GeneratePortal(World world, Random rand, BlockPos pos) {
 		int width = rand.nextInt(Properties.Overworld.maxWidth + 1 - Properties.Overworld.minWidth) + Properties.Overworld.minWidth;
 		int height = rand.nextInt(Properties.Overworld.maxHeight + 1 - Properties.Overworld.minHeight) + Properties.Overworld.minHeight;
-		
+
 		if (rand.nextBoolean()) {			
 			for (int l = 0; l < width; l++) {
 				TrySetBlock(l - width / 2, 0, 0, rand, world, pos);
@@ -56,7 +56,7 @@ public class OverworldPortalGen implements IWorldGenerator {
 			}
 			for (int h = 1; h < height - 1; h++) {
 				TrySetBlock(-width / 2, h, 0, rand, world, pos);
-				TrySetBlock(width / 2 - 1, h, 0, rand, world, pos);
+				TrySetBlock((int) ((width / 2f) - .5f), h, 0, rand, world, pos);
 			}
 		}
 		else {
@@ -65,8 +65,8 @@ public class OverworldPortalGen implements IWorldGenerator {
 				TrySetBlock(0, height - 1, l - width / 2, rand, world, pos);
 			}
 			for (int h = 1; h < height - 1; h++) {
-				TrySetBlock(0, h, -(width / 2), rand, world, pos);
-				TrySetBlock(0, h, width / 2 - 1, rand, world, pos);
+				TrySetBlock(0, h, -width / 2, rand, world, pos);
+				TrySetBlock(0, h, (int) ((width / 2f) - .5f), rand, world, pos);
 			}
 		}
 		
