@@ -4,39 +4,98 @@ public class Properties {
 	
 	public static void Init() {
 		General.Init();
+		Nether.Init();
+		Overworld.Init();
 	}
 	
 	public static class General{
-		public static int minAgeTicks;
-		public static int maxAgeTicks;
-		
-		public static String[] mobs_chance;
-		public static String[] mobs_affected;
-		public static float[] mobs_affected_chance;
-		
-		private static String[] mobs_chance_default = new String[] {
-			"minecraft:chicken,50.0",
-			"minecraft:pig,50.0",
-			"minecraft:cow,50.0",
-			"minecraft:sheep,50.0",
-			"minecraft:mooshroom,50.0",
-			"minecraft:villager,25.0"
-		};
 		
 		public static void Init() {
-			minAgeTicks = Config.LoadIntProperty("general", "min_age_ticks", "Minium random value to set the animals' age", 6000);
-			maxAgeTicks = Config.LoadIntProperty("general", "max_age_ticks", "Maximum random value to set the animals' age\n1200 is one minute to grow up. 24000 is 20 minutes\n", 24000);
 			
-			mobs_chance = Config.LoadStringListProperty("general", "mobs_chance", "List of mobs that can spawn as baby and chance for them to become baby\nThe format is modid:entityname,percentageChance (e.g. babymobs:zombiechicken,50.0). Get to a new line to add more mobs\n", mobs_chance_default);
+		}
+	}
+	
+	public static class Nether{		
+		public static int chance;
+		
+		public static int minY;
+		public static int maxY;
+		
+		public static float portalDecay;
 
-			mobs_affected = new String[mobs_chance.length];
-			mobs_affected_chance = new float[mobs_chance.length];
+		public static int minWidth;
+		public static int maxWidth;
+
+		public static int minHeight;
+		public static int maxHeight;
+		
+		public static float fireChance;
+		
+		public static float fullPortalChance;
+		public static float litPortalChance;
+		
+		public static void Init() {
+			Config.config.setCategoryComment("nether", "Configure here every setting for the portal spawn in the nether");
 			
-			for (int i = 0; i < mobs_chance.length; i++) {
-				String[] affected_and_chance = mobs_chance[i].split(",");
-				mobs_affected[i] = affected_and_chance[0];
-				mobs_affected_chance[i] = Float.parseFloat(affected_and_chance[1]) / 100f;
-			}
+			chance = Config.LoadIntProperty("nether", "chance", "One in every x chunks will try to spawn a Nether Portal", 120);
+
+			minY = Config.LoadIntProperty("nether", "min_y", "Minimum Height the Portal will try to spawn", 8);
+			maxY = Config.LoadIntProperty("nether", "max_y", "Maximum Height the Portal will try to spawn", 96);
+			
+			portalDecay = Config.LoadFloatProperty("nether", "portal_decay", "Percentage of how many obsidian blocks will have a portal. 100 means that the portal will not be missing any block", 45.0f);
+
+			minWidth = Config.LoadIntProperty("nether", "portal_width_min", "Minimum width of the portal (counting the obsidian frame too).", 4);
+			maxWidth = Config.LoadIntProperty("nether", "portal_width_max", "Maximum width of the portal (counting the obsidian frame too).", 5);
+
+			minHeight = Config.LoadIntProperty("nether", "portal_height_min", "Minimum height of the portal (counting the obsidian frame too).", 5);
+			maxHeight = Config.LoadIntProperty("nether", "portal_height_max", "Maximum height of the portal (counting the obsidian frame too).", 6);
+			
+			fireChance = Config.LoadFloatProperty("nether", "fire_chance", "Chance for fire to be placed on netherrack around the portal", 30.0f);
+
+			fullPortalChance = Config.LoadFloatProperty("nether", "portal_full_chance", "Chance for a portal to have the full obsidian frame around it", 25.0f);
+			litPortalChance = Config.LoadFloatProperty("nether", "portal_lit_chance", "Chance for a full portal to be on", 100.0f);
+		}
+	}
+	
+	public static class Overworld{		
+		public static int chance;
+		
+		public static int minY;
+		public static int maxY;
+		
+		public static float portalDecay;
+
+		public static int minWidth;
+		public static int maxWidth;
+
+		public static int minHeight;
+		public static int maxHeight;
+		
+		public static boolean burnBurnable;
+		public static float fireChance;
+		
+		public static float netherrackChance;
+		
+		public static void Init() {
+			Config.config.setCategoryComment("overworld", "Configure here every setting for the portal spawn in the overworld");
+			
+			chance = Config.LoadIntProperty("overworld", "chance", "One in every x chunks will try to spawn a Nether Portal", 384);
+
+			minY = Config.LoadIntProperty("overworld", "min_y", "Minimum Height the Portal will try to spawn", 64);
+			maxY = Config.LoadIntProperty("overworld", "max_y", "Maximum Height the Portal will try to spawn", 196);
+			
+			portalDecay = Config.LoadFloatProperty("overworld", "portal_decay", "Percentage of how many obsidian blocks will have a portal. 100 means that the portal will not be missing any block", 45.0f);
+
+			minWidth = Config.LoadIntProperty("overworld", "portal_width_min", "Minimum width of the portal (counting the obsidian frame too).", 4);
+			maxWidth = Config.LoadIntProperty("overworld", "portal_width_max", "Maximum width of the portal (counting the obsidian frame too).", 4);
+
+			minHeight = Config.LoadIntProperty("overworld", "portal_height_min", "Minimum height of the portal (counting the obsidian frame too).", 5);
+			maxHeight = Config.LoadIntProperty("overworld", "portal_height_max", "Maximum height of the portal (counting the obsidian frame too).", 5);
+			
+			burnBurnable = Config.LoadBoolProperty("overworld", "burn_burnable", "If true, burnable blocks (e.g. leaves, logs, etc.) will be replaced by fire instad of air", false);
+			fireChance = Config.LoadFloatProperty("overworld", "fire_chance", "Chance for fire to be placed on netherrack", 10.0f);
+			
+			netherrackChance = Config.LoadFloatProperty("overworld", "base_netherrack_chance", "Chance for a netherrack block to be placed around the portal.\nThe actual chance is based on distance from portal\nThe formula to calculate the chance based on distance is (netherrack_chance / distance)\n", 50.0f);
 		}
 	}
 }

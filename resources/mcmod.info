@@ -1,11 +1,11 @@
 [
 {
-  "modid": "naturalbabyanimals",
-  "name": "Natural Baby Animals",
-  "description": "Animals spawned in the world have 50% to be baby. Like Pocket Edition used to do!",
+  "modid": "naturalnetherportals",
+  "name": "Natural Nether Portals",
+  "description": "Makes (broken) Nether Portals spawn randomly in the nether and the overworld",
   "version": "${version}",
   "mcversion": "${mcversion}",
-  "url": "https://minecraft.curseforge.com/projects/natural-baby-animals",
+  "url": "https://minecraft.curseforge.com/projects/natural-nether-portals",
   "updateUrl": "",
   "authorList": ["Insane96MCP"],
   "credits": "The Forge and Minecraft forum for help :P",
