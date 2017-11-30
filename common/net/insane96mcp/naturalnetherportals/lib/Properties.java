@@ -76,6 +76,9 @@ public class Properties {
 		
 		public static float netherrackChance;
 		
+		public static float fullPortalChance;
+		public static float litPortalChance;
+		
 		public static void Init() {
 			Config.config.setCategoryComment("overworld", "Configure here every setting for the portal spawn in the overworld");
 			
@@ -96,6 +99,9 @@ public class Properties {
 			fireChance = Config.LoadFloatProperty("overworld", "fire_chance", "Chance for fire to be placed on netherrack", 10.0f);
 			
 			netherrackChance = Config.LoadFloatProperty("overworld", "base_netherrack_chance", "Chance for a netherrack block to be placed around the portal.\nThe actual chance is based on distance from portal\nThe formula to calculate the chance based on distance is (netherrack_chance / distance)\n", 50.0f);
+
+			fullPortalChance = Config.LoadFloatProperty("overworld", "portal_full_chance", "Chance for a portal to have the full obsidian frame around it", 25.0f);
+			litPortalChance = Config.LoadFloatProperty("overworld", "portal_lit_chance", "Chance for a full portal to be on", 100.0f);
 		}
 	}
 }
