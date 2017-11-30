@@ -34,7 +34,7 @@ public class OverworldPortalGen implements IWorldGenerator {
 		
 		int y = GetGroundFromAbove(world, chunkPos);
 		
-		if (y < Properties.Overworld.minY)
+		if (y <= Properties.Overworld.minY)
 			return;
 
 		chunkPos = chunkPos.add(0, y, 0);
@@ -44,9 +44,13 @@ public class OverworldPortalGen implements IWorldGenerator {
 	
 	private static float portalDecay = Properties.Overworld.portalDecay / 100f;
 	
+	static boolean isFull = false;
+	
 	public static void GeneratePortal(World world, Random rand, BlockPos pos) {
 		int width = rand.nextInt(Properties.Overworld.maxWidth + 1 - Properties.Overworld.minWidth) + Properties.Overworld.minWidth;
 		int height = rand.nextInt(Properties.Overworld.maxHeight + 1 - Properties.Overworld.minHeight) + Properties.Overworld.minHeight;
+		
+		isFull = rand.nextFloat() < Properties.Overworld.fullPortalChance / 100f;
 
 		if (rand.nextBoolean()) {			
 			for (int l = 0; l < width; l++) {
@@ -68,6 +72,9 @@ public class OverworldPortalGen implements IWorldGenerator {
 				TrySetBlock(0, h, (int) ((width / 2f) - .5f), rand, world, pos);
 			}
 		}
+		
+		if (isFull && rand.nextFloat() < Properties.Overworld.litPortalChance / 100f)
+			world.setBlockState(pos.add(0, 1, 0), Blocks.FIRE.getDefaultState());
 		
 		for (int i = 0; i < 4; i++) {
 			for(int h = 0; h < 3; h++) {
@@ -97,7 +104,7 @@ public class OverworldPortalGen implements IWorldGenerator {
 	}
 	
 	private static void TrySetBlock(int x, int y, int z, Random rand, World world, BlockPos pos) {
-		if (rand.nextFloat() < portalDecay)
+		if (rand.nextFloat() < portalDecay || isFull)
 			world.setBlockState(pos.add(x, y, z), Blocks.OBSIDIAN.getDefaultState());
 	}
 	

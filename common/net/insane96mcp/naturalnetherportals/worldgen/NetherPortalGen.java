@@ -72,6 +72,8 @@ public class NetherPortalGen implements IWorldGenerator{
 			}
 		}
 		
+		System.out.println(pos.getX() + " " + pos.getY() + " " + pos.getZ() + " full: " + isFull);
+		
 		if (isFull && rand.nextFloat() < Properties.Nether.litPortalChance / 100f)
 			world.setBlockState(pos.add(0, 1, 0), Blocks.FIRE.getDefaultState());
 
