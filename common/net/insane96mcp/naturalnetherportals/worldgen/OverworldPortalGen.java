@@ -2,6 +2,7 @@ package net.insane96mcp.naturalnetherportals.worldgen;
 
 import java.util.Random;
 
+import net.insane96mcp.naturalnetherportals.events.PortalSavedData;
 import net.insane96mcp.naturalnetherportals.lib.Properties;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -84,6 +85,10 @@ public class OverworldPortalGen implements IWorldGenerator {
 					NetherrackCircle(world, pos.add(0, -h, 0), i + 1 - h);
 			}
 		}
+		
+		//System.out.println(String.format("Spawned Portal at %d %d %d", pos.getX(), pos.getY(), pos.getZ()));
+		
+		//PortalSavedData.get(world).addPortalPosition(pos);
 	}
 	
 	private static int GetGroundFromAbove(World world, BlockPos pos)
