@@ -1,7 +1,9 @@
 package net.insane96mcp.naturalnetherportals.worldgen;
 
+import java.util.ArrayList;
 import java.util.Random;
 
+import net.insane96mcp.naturalnetherportals.events.WorldSaveData;
 import net.insane96mcp.naturalnetherportals.lib.Properties;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -37,8 +39,16 @@ public class NetherPortalGen implements IWorldGenerator{
 			return;
 
 		chunkPos = chunkPos.add(0, y, 0);
-		
-		GeneratePortal(world, random, chunkPos);
+
+		ArrayList<BlockPos> portalPositions = WorldSaveData.get(world).getNetherPortals();
+		boolean canGenerate = true;
+		for (BlockPos pos : portalPositions) {
+			double distance = pos.getDistance(chunkPos.getX(), chunkPos.getY(), chunkPos.getZ());
+			if (distance < Properties.Nether.minDistance)
+				canGenerate = false;
+		}
+		if (canGenerate)
+			GeneratePortal(world, random, chunkPos);
 	}
 	
 	private static float portalDecay = Properties.Nether.portalDecay / 100f;
@@ -83,6 +93,8 @@ public class NetherPortalGen implements IWorldGenerator{
 			if (h != 0)
 				TryPlaceFire(world, pos.add(0, -h, 0), 4 - h);
 		}
+		
+		WorldSaveData.get(world).addNetherPortal(pos);
 	}
 	
 	private static void TrySetBlock(int x, int y, int z, Random rand, World world, BlockPos pos) {
