@@ -1,7 +1,9 @@
 package net.insane96mcp.naturalnetherportals.worldgen;
 
+import java.util.ArrayList;
 import java.util.Random;
 
+import net.insane96mcp.naturalnetherportals.events.WorldSaveData;
 import net.insane96mcp.naturalnetherportals.lib.Properties;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -11,7 +13,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkGenerator;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraftforge.fml.common.IWorldGenerator;
-import scala.collection.mutable.ArrayBuilder.ofInt;
 
 public class OverworldPortalGen implements IWorldGenerator {
 	@Override
@@ -39,8 +40,16 @@ public class OverworldPortalGen implements IWorldGenerator {
 			return;
 
 		chunkPos = chunkPos.add(0, y, 0);
-		
-		GeneratePortal(world, random, chunkPos);
+
+		ArrayList<BlockPos> portalPositions = WorldSaveData.get(world).getOverworldPortals();
+		boolean canGenerate = true;
+		for (BlockPos pos : portalPositions) {
+			double distance = pos.getDistance(chunkPos.getX(), chunkPos.getY(), chunkPos.getZ());
+			if (distance < Properties.Overworld.minDistance)
+				canGenerate = false;
+		}
+		if (canGenerate)
+			GeneratePortal(world, random, chunkPos);
 	}
 	
 	private static float portalDecay = Properties.Overworld.portalDecay / 100f;
@@ -84,6 +93,8 @@ public class OverworldPortalGen implements IWorldGenerator {
 					NetherrackCircle(world, pos.add(0, -h, 0), i + 1 - h);
 			}
 		}
+		
+		WorldSaveData.get(world).addOverworldPortal(pos);
 	}
 	
 	private static int GetGroundFromAbove(World world, BlockPos pos)
