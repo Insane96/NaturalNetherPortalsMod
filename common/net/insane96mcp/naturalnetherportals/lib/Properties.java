@@ -106,7 +106,7 @@ public class Properties {
 			
 			netherrackChance = Config.LoadFloatProperty("overworld", "base_netherrack_chance", "Chance for a netherrack block to be placed around the portal.\nThe actual chance is based on distance from portal\nThe formula to calculate the chance based on distance is (netherrack_chance / distance)\n", 50.0f);
 
-			fullPortalChance = Config.LoadFloatProperty("overworld", "portal_full_chance", "Chance for a portal to have the full obsidian frame around it", 0.0f);
+			fullPortalChance = Config.LoadFloatProperty("overworld", "portal_full_chance", "Chance for a portal to have the full obsidian frame around it", 25.0f);
 			litPortalChance = Config.LoadFloatProperty("overworld", "portal_lit_chance", "Chance for a full portal to be on", 0.0f);
 		
 			minDistance = Config.LoadFloatProperty("overworld", "min_distance", "Minumum blocks distance between the portals spawning. This is here to avoid clusters of portals", 313);
