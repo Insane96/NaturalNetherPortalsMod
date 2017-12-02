@@ -34,10 +34,12 @@ public class Properties {
 		public static float fullPortalChance;
 		public static float litPortalChance;
 		
+		public static float minDistance;
+		
 		public static void Init() {
 			Config.config.setCategoryComment("nether", "Configure here every setting for the portal spawn in the nether");
 			
-			chance = Config.LoadIntProperty("nether", "chance", "One in every x chunks will try to spawn a Nether Portal", 120);
+			chance = Config.LoadIntProperty("nether", "chance", "One in every x there's a chance that a portal will try to spawn in a chunk", 120);
 
 			minY = Config.LoadIntProperty("nether", "min_y", "Minimum Height the Portal will try to spawn", 8);
 			maxY = Config.LoadIntProperty("nether", "max_y", "Maximum Height the Portal will try to spawn", 96);
@@ -54,6 +56,8 @@ public class Properties {
 
 			fullPortalChance = Config.LoadFloatProperty("nether", "portal_full_chance", "Chance for a portal to have the full obsidian frame around it", 25.0f);
 			litPortalChance = Config.LoadFloatProperty("nether", "portal_lit_chance", "Chance for a full portal to be on", 100.0f);
+		
+			minDistance = Config.LoadFloatProperty("nether", "min_distance", "Minumum blocks distance between the portals spawning. This is here to avoid clusters of portals", 175);
 		}
 	}
 	
@@ -79,10 +83,12 @@ public class Properties {
 		public static float fullPortalChance;
 		public static float litPortalChance;
 		
+		public static float minDistance;
+		
 		public static void Init() {
 			Config.config.setCategoryComment("overworld", "Configure here every setting for the portal spawn in the overworld");
 			
-			chance = Config.LoadIntProperty("overworld", "chance", "One in every x chunks will try to spawn a Nether Portal", 384);
+			chance = Config.LoadIntProperty("overworld", "chance", "One in every x there's a chance that a portal will try to spawn in a chunk", 384);
 
 			minY = Config.LoadIntProperty("overworld", "min_y", "Minimum Height the Portal will try to spawn", 64);
 			maxY = Config.LoadIntProperty("overworld", "max_y", "Maximum Height the Portal will try to spawn", 196);
@@ -102,6 +108,8 @@ public class Properties {
 
 			fullPortalChance = Config.LoadFloatProperty("overworld", "portal_full_chance", "Chance for a portal to have the full obsidian frame around it", 0.0f);
 			litPortalChance = Config.LoadFloatProperty("overworld", "portal_lit_chance", "Chance for a full portal to be on", 0.0f);
+		
+			minDistance = Config.LoadFloatProperty("overworld", "min_distance", "Minumum blocks distance between the portals spawning. This is here to avoid clusters of portals", 313);
 		}
 	}
 }

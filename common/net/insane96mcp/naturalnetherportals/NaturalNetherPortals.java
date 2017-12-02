@@ -1,5 +1,7 @@
 package net.insane96mcp.naturalnetherportals;
 
+import org.apache.logging.log4j.Logger;
+
 import net.insane96mcp.naturalnetherportals.proxies.CommonProxy;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -18,6 +20,8 @@ public class NaturalNetherPortals {
 	public static final String RESOURCE_PREFIX = MOD_ID.toLowerCase() + ":";
 	public static final String MINECRAFT_VERSIONS = "[1.11,1.11.2]";
 	
+	public static Logger logger;
+	
 	@Instance(MOD_ID)
 	public static NaturalNetherPortals instance;
 	
@@ -27,6 +31,7 @@ public class NaturalNetherPortals {
 	@EventHandler
 	public void PreInit(FMLPreInitializationEvent event) {
 		proxy.PreInit(event);
+		logger = event.getModLog();
 	}
 	
 	@EventHandler

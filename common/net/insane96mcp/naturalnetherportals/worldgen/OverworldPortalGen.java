@@ -1,8 +1,9 @@
 package net.insane96mcp.naturalnetherportals.worldgen;
 
+import java.util.ArrayList;
 import java.util.Random;
 
-import net.insane96mcp.naturalnetherportals.events.PortalSavedData;
+import net.insane96mcp.naturalnetherportals.events.WorldSaveData;
 import net.insane96mcp.naturalnetherportals.lib.Properties;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -12,7 +13,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkGenerator;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraftforge.fml.common.IWorldGenerator;
-import scala.collection.mutable.ArrayBuilder.ofInt;
 
 public class OverworldPortalGen implements IWorldGenerator {
 	@Override
@@ -40,8 +40,16 @@ public class OverworldPortalGen implements IWorldGenerator {
 			return;
 
 		chunkPos = chunkPos.add(0, y, 0);
-		
-		GeneratePortal(world, random, chunkPos);
+
+		ArrayList<BlockPos> portalPositions = WorldSaveData.get(world).getOverworldPortals();
+		boolean canGenerate = true;
+		for (BlockPos pos : portalPositions) {
+			double distance = pos.getDistance(chunkPos.getX(), chunkPos.getY(), chunkPos.getZ());
+			if (distance < Properties.Overworld.minDistance)
+				canGenerate = false;
+		}
+		if (canGenerate)
+			GeneratePortal(world, random, chunkPos);
 	}
 	
 	private static float portalDecay = Properties.Overworld.portalDecay / 100f;
@@ -86,11 +94,13 @@ public class OverworldPortalGen implements IWorldGenerator {
 			}
 		}
 		
-		//System.out.println(String.format("Spawned Portal at %d %d %d", pos.getX(), pos.getY(), pos.getZ()));
+		System.out.println(pos.toString());
 		
-		//PortalSavedData.get(world).addPortalPosition(pos);
+		WorldSaveData.get(world).addOverworldPortal(pos);
 	}
-	
+
+	//Had to because mojang doesn't know how to use deprecated correctly
+	@SuppressWarnings("deprecation")
 	private static int GetGroundFromAbove(World world, BlockPos pos)
 	{
 		int y = Properties.Overworld.maxY;
@@ -114,6 +124,8 @@ public class OverworldPortalGen implements IWorldGenerator {
 			world.setBlockState(pos.add(x, y, z), Blocks.OBSIDIAN.getDefaultState());
 	}
 	
+	//Had to because mojang doesn't know how to use deprecated correctly
+	@SuppressWarnings("deprecation")
 	private static void NetherrackCircle(World world, BlockPos pos, int radius) {
 		int radiusLoop = radius * 12;
 		for(int i = 0; i < radiusLoop; i++){
