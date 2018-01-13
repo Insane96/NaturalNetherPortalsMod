@@ -17,9 +17,9 @@ public class Config {
 	public static int[] LoadIntListProperty(String category, String key, String description, int[] defaultValue) {
 		Property property = Config.config.get(category, key, defaultValue);
 		description += " (default: [";
-		for (int i = 0; i < property.getIntList().length; i++) {
-			description += property.getIntList()[i];
-			if (i != property.getIntList().length - 1)
+		for (int i = 0; i < defaultValue.length; i++) {
+			description += defaultValue[i];
+			if (i != defaultValue.length - 1)
 				description += ", ";
 		}
 		description += "])";
@@ -50,9 +50,9 @@ public class Config {
 	public static String[] LoadStringListProperty(String category, String key, String description, String[] defaultValue) {
 		Property property = Config.config.get(category, key, defaultValue);
 		description += " (default: [";
-		for (int i = 0; i < property.getStringList().length; i++) {
-			description += property.getStringList()[i];
-			if (i != property.getStringList().length - 1)
+		for (int i = 0; i < defaultValue.length; i++) {
+			description += defaultValue[i];
+			if (i != defaultValue.length - 1)
 				description += ", ";
 		}
 		description += "])";

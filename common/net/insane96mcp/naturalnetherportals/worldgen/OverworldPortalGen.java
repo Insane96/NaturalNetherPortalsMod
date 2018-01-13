@@ -34,6 +34,11 @@ public class OverworldPortalGen implements IWorldGenerator {
 		
 		chunkPos = chunkPos.add(randX, 0, randZ);
 		
+		BlockPos spawnPoint = world.getSpawnPoint();
+		double distanceFromSpawn = chunkPos.getDistance(spawnPoint.getX(), spawnPoint.getY(), spawnPoint.getZ());
+		if (distanceFromSpawn < Properties.Overworld.worldSpawnDistance)
+			return;
+		
 		int y = GetGroundFromAbove(world, chunkPos);
 		
 		if (y <= Properties.Overworld.minY)
