@@ -85,6 +85,8 @@ public class Properties {
 		
 		public static float minDistance;
 		
+		public static int worldSpawnDistance;
+		
 		public static void Init() {
 			Config.config.setCategoryComment("overworld", "Configure here every setting for the portal spawn in the overworld");
 			
@@ -110,6 +112,8 @@ public class Properties {
 			litPortalChance = Config.LoadFloatProperty("overworld", "portal_lit_chance", "Chance for a full portal to be on", 0.0f);
 		
 			minDistance = Config.LoadFloatProperty("overworld", "min_distance", "Minumum blocks distance between the portals spawning. This is here to avoid clusters of portals", 313);
+		
+			worldSpawnDistance = Config.LoadIntProperty("overworld", "world_spawn_distance", "Radius where no nether portals will spawn around the spawn of the world. Set to 0 to disable.", 384);
 		}
 	}
 }

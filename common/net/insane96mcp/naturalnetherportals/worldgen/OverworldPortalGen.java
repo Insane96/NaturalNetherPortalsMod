@@ -34,6 +34,11 @@ public class OverworldPortalGen implements IWorldGenerator {
 		
 		chunkPos = chunkPos.add(randX, 0, randZ);
 		
+		BlockPos spawnPoint = world.getSpawnPoint();
+		double distanceFromSpawn = chunkPos.getDistance(spawnPoint.getX(), spawnPoint.getY(), spawnPoint.getZ());
+		if (distanceFromSpawn < Properties.Overworld.worldSpawnDistance)
+			return;
+		
 		int y = GetGroundFromAbove(world, chunkPos);
 		
 		if (y <= Properties.Overworld.minY)
@@ -93,8 +98,6 @@ public class OverworldPortalGen implements IWorldGenerator {
 					NetherrackCircle(world, pos.add(0, -h, 0), i + 1 - h);
 			}
 		}
-		
-		System.out.println(pos.toString());
 		
 		WorldSaveData.get(world).addOverworldPortal(pos);
 	}
